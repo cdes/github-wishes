@@ -1,24 +1,27 @@
 import React from 'react'
-import GitHubLogin from 'react-github-login'
-import { Link } from 'gatsby'
+import { Link, navigate } from 'gatsby'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
+import SocialButton from '../components/social-button'
 
 class AuthenticationPage extends React.Component {
-  onSuccess = response => {
+  onSuccess = user => {
     console.log('authenticated')
-    console.log(response)
+    console.log(user)
 
     // Store in local storage
-    localStorage.setItem('auth_code', response.code)
+    localStorage.setItem('auth_code', user._token.accessToken)
+    localStorage.setItem('username', user._profile.name)
+    localStorage.setItem('profilePicURL', user._profile.profilePicURL)
 
-    // TODO: Redirect to issues page
+    // Redirect to issues page
+    navigate('/issues')
   }
 
-  onFailure = response => {
+  onFailure = error => {
     // TODO:
-    console.error(response)
+    console.error(error)
   }
 
   render() {
@@ -27,12 +30,16 @@ class AuthenticationPage extends React.Component {
         <SEO title="Login using GitHub" />
 
         {/* TODO: Show this only when localStorage doesn't exist or auth fails */}
-        <GitHubLogin
-          clientId="335e5654ddc5ba0d8399"
-          redirectUri="http://localhost:8000/oauth/callback"
-          onSuccess={this.onSuccess}
-          onFailure={this.onFailure}
-        />
+        <SocialButton
+          provider="github"
+          appId="335e5654ddc5ba0d8399"
+          gatekeeper="https://github-wishes-gatekeeper.herokuapp.com"
+          redirect='http://localhost:8000/authentication'
+          onLoginSuccess={this.onSuccess}
+          onLoginFailure={this.onFailure}
+        >
+          Login with GitHub
+        </SocialButton>
         <Link to="/">Go back to the homepage</Link>
       </Layout>
     )
