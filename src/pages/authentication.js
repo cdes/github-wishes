@@ -1,28 +1,17 @@
 import React from 'react'
 import GitHubLogin from 'react-github-login'
-import addMonths from 'date-fns/add_months'
 import { Link } from 'gatsby'
-import { instanceOf } from 'prop-types'
-import { withCookies, Cookies } from 'react-cookie'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 
 class AuthenticationPage extends React.Component {
-  static propTypes = {
-    cookies: instanceOf(Cookies).isRequired,
-  }
-
   onSuccess = response => {
     console.log('authenticated')
     console.log(response)
 
-    // Store in cookies
-    const { cookies } = this.props
-    cookies.set('auth_code', response, {
-      path: '/',
-      expires: addMonths(new Date(), 3),
-    })
+    // Store in local storage
+    localStorage.setItem('auth_code', response.code)
 
     // TODO: Redirect to issues page
   }
@@ -37,7 +26,7 @@ class AuthenticationPage extends React.Component {
       <Layout>
         <SEO title="Login using GitHub" />
 
-        {/* TODO: Show this only when cookie doesn't exist or auth fails */}
+        {/* TODO: Show this only when localStorage doesn't exist or auth fails */}
         <GitHubLogin
           clientId="335e5654ddc5ba0d8399"
           redirectUri="http://localhost:8000/oauth/callback"
@@ -50,4 +39,4 @@ class AuthenticationPage extends React.Component {
   }
 }
 
-export default withCookies(AuthenticationPage)
+export default AuthenticationPage
