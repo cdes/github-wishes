@@ -35,6 +35,10 @@ class AuthenticationPage extends React.Component {
           appId="335e5654ddc5ba0d8399"
           gatekeeper="https://github-wishes-gatekeeper.herokuapp.com"
           redirect='http://localhost:8000/authentication'
+          // Not sure if we need repo scope, it gives access to too much data,
+          // I would prefer to get search or issues access only, please see:
+          // https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/#available-scopes
+          scope='repo'
           onLoginSuccess={this.onSuccess}
           onLoginFailure={this.onFailure}
         >
