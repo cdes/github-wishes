@@ -11,7 +11,7 @@ class IssuesPage extends React.Component {
     client
       .query({
         query: gql`{
-        search(type: ISSUE, query: "repo: ${owner}/${repo} label:wishes is:issue is:open sort:reactions-+1-desc", first: 100) {
+        search(type: ISSUE, query: "repo:${owner}/${repo} label:wishes is:issue is:open sort:reactions-+1-desc", first: 100) {
           edges {
             node {
               ... on Issue {
@@ -27,7 +27,12 @@ class IssuesPage extends React.Component {
       }`,
       })
       .then(result => {
-        console.log(result)
+        console.log(
+          result.data.search.edges.map(issue => ({
+            title: issue.node.title,
+            ups: issue.node.ups.totalCount,
+          }))
+        )
         this.setState({ issues: result })
       })
   }
