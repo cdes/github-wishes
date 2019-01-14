@@ -22,7 +22,7 @@
     "react-apollo": "^2.3.3",
     "react-dom": "^16.6.3",
     "react-helmet": "^5.2.0",
-    "react-social-login": "^3.4.3"
+    "react-social-login": "https://github.com/cdes/react-social-login"
   },
   "keywords": [
     "gatsby"

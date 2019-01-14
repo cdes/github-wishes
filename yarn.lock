@@ -9372,10 +9372,9 @@ react-side-effect@^1.1.0:
     exenv "^1.2.1"
     shallowequal "^1.0.1"
 
-react-social-login@^3.4.3:
+"react-social-login@https://github.com/cdes/react-social-login":
   version "3.4.3"
-  resolved "https://registry.yarnpkg.com/react-social-login/-/react-social-login-3.4.3.tgz#837872acebb9d1a1cf3afbf6625fe53464808c09"
-  integrity sha512-dNaOgwzdZWc2Jpd1idqBckf7GfXsjEQ2F9Fg6mFCfBmE6qtorZt9K4flof50djHx+xE6qYd+iOEXSz1Fi1loBw==
+  resolved "https://github.com/cdes/react-social-login#a78497160f52ca8d6fdc2b2501b0630c16ce7710"
   dependencies:
     bluebird "3.5.1"
     fetch-jsonp "1.1.3"
